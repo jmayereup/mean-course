@@ -5,6 +5,11 @@ import { Component } from '@angular/core';
   selector: 'app-post-create'
 })
 export class PostCreateComponent {
+  enteredValue = '';
+  newPost = 'No Content';
 
+  onAddPost() {
+    this.newPost = this.enteredValue;
+  }
 
 }
