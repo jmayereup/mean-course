@@ -1,7 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <app-header-component></app-header-component>
 <main>
-<div style="text-align:center">
-  <app-post-create></app-post-create>
-</div>
+  <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+  <app-post-list [posts]="storedPosts"></app-post-list>
 </main>
