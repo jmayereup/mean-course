@@ -1,0 +1,14 @@
+const config = {
+  db_uri: "mongodb+srv://cluster0-ki5vv.gcp.mongodb.net", // Replace with your server
+  options: {
+    useNewUrlParser: true,
+    dbName: "test",
+    auth: {
+      user: 'USERNAME',            // Change
+      password: 'PASSWORD'         // Change
+    }
+  }
+};
+
+module.exports = config;
+
