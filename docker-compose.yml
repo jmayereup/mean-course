@@ -1,0 +1,13 @@
+version: "3"
+services:
+  ng:
+    image: mean-course:latest # replaced image with build
+    # command: python app.py
+    # environment:
+    # # command: bash
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+      - "3000:3000"
+    volumes:
+      - .:/home/mean-course

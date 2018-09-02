@@ -29,8 +29,11 @@ app.post("/api/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content
   });
-  post.save();
-  res.status(201).json({message: 'Post added successfully.'});  //201 means success, new resource created
+  post.save().then(result => {
+    const postId = result._id;
+    res.status(201).json({message: 'Post added successfully.', id: postId});
+  });
+   //201 means success, new resource created
 });
 
 app.delete("/api/posts/:id", (req, res, next) => {
