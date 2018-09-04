@@ -56,7 +56,17 @@ app.get('/api/posts', (req, res, next) => {
     })
   });    //backend db structure is decoupled from the client user model
 
-  //called by savePost(:postid)
+app.get('/api/posts/:postId', (req, res, next) => {
+  Post.findById(req.params.postId).then(post => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      res.status(404).json({message: "Post not found."});
+    }
+  })
+})
+
+  //called by savePost(:postId)
 app.put("/api/posts/:postId", (req, res, next) =>{
   const post = new Post({
     _id: req.body.id,
