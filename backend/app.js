@@ -20,10 +20,11 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS"); // Options method automatically sent before post
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS"); // Options method automatically sent before post
   next();
 });
 
+// called by savePost()
 app.post("/api/posts", (req, res, next) => {
   const post = new Post({
     title: req.body.title,
@@ -36,6 +37,7 @@ app.post("/api/posts", (req, res, next) => {
    //201 means success, new resource created
 });
 
+// called by deletePost()
 app.delete("/api/posts/:id", (req, res, next) => {
   console.log(req.params.id);
   Post.deleteOne({_id: req.params.id})
@@ -45,6 +47,7 @@ app.delete("/api/posts/:id", (req, res, next) => {
     })
 });
 
+// called by getPosts()
 app.get('/api/posts', (req, res, next) => {
   Post.find().then(documents => {
     res.status(200).json({
@@ -53,6 +56,18 @@ app.get('/api/posts', (req, res, next) => {
     })
   });    //backend db structure is decoupled from the client user model
 
+  //called by savePost(:postid)
+app.put("/api/posts/:postId", (req, res, next) =>{
+  const post = new Post({
+    _id: req.body.id,
+    title: req.body.title,
+    content: req.body.content
+  })
+  Post.updateOne({_id: req.params.postId}, post).then((result) => {
+    console.log(result);
+    res.status(200).json({message: "Update Successful"});
+  })
+})
 });
 
 module.exports = app;
